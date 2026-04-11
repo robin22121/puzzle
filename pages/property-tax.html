@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>재산세 계산기 - 부동산 계산기</title>
+  <link rel="stylesheet" href="../css/common.css" />
+  <link rel="stylesheet" href="../css/calculator.css" />
+</head>
+<body>
+
+  <header class="header">
+    <div class="header-inner">
+      <a href="../index.html" class="header-logo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="12" y2="14"/></svg>
+        부동산 계산기
+      </a>
+      <button class="menu-toggle" aria-label="메뉴">&#9776;</button>
+      <nav class="header-nav">
+        <a href="../index.html">홈</a>
+        <a href="brokerage-fee.html">중개보수</a>
+        <a href="acquisition-tax.html">취득세</a>
+        <a href="property-tax.html" class="active">재산세</a>
+        <a href="dti-dsr.html">DTI/DSR</a>
+        <a href="ltv.html">대출가능액</a>
+        <a href="rental-yield.html">임대수익률</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="../index.html">홈</a> / <span>재산세 계산기</span>
+    </div>
+
+    <h1 class="calc-page-title">재산세 계산기</h1>
+    <p class="calc-page-desc">공시가격을 기준으로 매년 납부할 재산세와 도시지역분을 계산합니다.</p>
+
+    <div class="calc-layout">
+      <div class="calc-input-section">
+        <h2>부동산 정보 입력</h2>
+
+        <div class="form-group">
+          <label class="form-label">공시가격</label>
+          <div class="input-with-unit">
+            <input type="text" class="form-input" id="officialPrice" placeholder="공시가격 입력" />
+            <span class="input-unit">원</span>
+          </div>
+          <span class="korean-amount" id="officialPriceKr"></span>
+          <span class="form-hint">국토교통부 부동산공시가격 알리미에서 확인 가능합니다</span>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">공정시장가액비율</label>
+          <div class="slider-container">
+            <input type="range" class="form-slider" id="fairRatio" min="40" max="100" value="60" step="5" />
+            <span class="slider-value" id="fairRatioValue">60%</span>
+          </div>
+          <span class="form-hint">2024년 기준 주택 공정시장가액비율: 60%</span>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">도시지역분 적용</label>
+          <div class="radio-group" id="cityArea">
+            <button class="radio-btn active" data-value="yes">적용 (도시지역)</button>
+            <button class="radio-btn" data-value="no">미적용</button>
+          </div>
+        </div>
+
+        <div class="info-box">
+          <p><strong>참고</strong> 재산세는 매년 6월 1일 기준 소유자에게 7월(건물분)과 9월(토지분)에 부과됩니다.</p>
+        </div>
+      </div>
+
+      <div class="calc-result-section">
+        <div class="result-header">
+          <h2>연간 재산세 합계</h2>
+          <div class="result-main-value" id="resultTotal">0<small>원</small></div>
+          <div class="result-sub-text" id="resultTotalKr"></div>
+        </div>
+        <div class="result-details">
+          <div class="result-row">
+            <span class="result-row-label">공시가격</span>
+            <span class="result-row-value" id="resultOfficial">0원</span>
+          </div>
+          <div class="result-row">
+            <span class="result-row-label">과세표준</span>
+            <span class="result-row-value" id="resultTaxBase">0원</span>
+          </div>
+          <div class="result-row">
+            <span class="result-row-label">적용 세율</span>
+            <span class="result-row-value" id="resultRate">0%</span>
+          </div>
+          <div class="result-row">
+            <span class="result-row-label">재산세</span>
+            <span class="result-row-value" id="resultPropertyTax">0원</span>
+          </div>
+          <div class="result-row">
+            <span class="result-row-label">도시지역분</span>
+            <span class="result-row-value" id="resultCityTax">0원</span>
+          </div>
+          <div class="result-row">
+            <span class="result-row-label">지방교육세</span>
+            <span class="result-row-value" id="resultEduTax">0원</span>
+          </div>
+          <div class="result-row highlight">
+            <span class="result-row-label">연간 합계</span>
+            <span class="result-row-value" id="resultTotalHighlight">0원</span>
+          </div>
+        </div>
+
+        <div class="result-chart">
+          <h3>세금 구성</h3>
+          <div class="bar-chart">
+            <div class="bar-item">
+              <span class="bar-label">재산세</span>
+              <div class="bar-track"><div class="bar-fill blue" id="barProp" style="width:0%"></div></div>
+              <span class="bar-amount" id="barPropAmt">0원</span>
+            </div>
+            <div class="bar-item">
+              <span class="bar-label">도시지역분</span>
+              <div class="bar-track"><div class="bar-fill green" id="barCity" style="width:0%"></div></div>
+              <span class="bar-amount" id="barCityAmt">0원</span>
+            </div>
+            <div class="bar-item">
+              <span class="bar-label">지방교육세</span>
+              <div class="bar-track"><div class="bar-fill orange" id="barEdu" style="width:0%"></div></div>
+              <span class="bar-amount" id="barEduAmt">0원</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <p>본 계산기는 참고용이며, 실제 거래 시 전문가 상담을 권장합니다.</p>
+  </footer>
+
+  <script src="../js/common.js"></script>
+  <script src="../js/calculators/property-tax.js"></script>
+</body>
+</html>

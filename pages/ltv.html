@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LTV 대출가능액 계산기 - 부동산 계산기</title>
+  <link rel="stylesheet" href="../css/common.css" />
+  <link rel="stylesheet" href="../css/calculator.css" />
+</head>
+<body>
+
+  <header class="header">
+    <div class="header-inner">
+      <a href="../index.html" class="header-logo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="12" y2="14"/></svg>
+        부동산 계산기
+      </a>
+      <button class="menu-toggle" aria-label="메뉴">&#9776;</button>
+      <nav class="header-nav">
+        <a href="../index.html">홈</a>
+        <a href="brokerage-fee.html">중개보수</a>
+        <a href="acquisition-tax.html">취득세</a>
+        <a href="property-tax.html">재산세</a>
+        <a href="dti-dsr.html">DTI/DSR</a>
+        <a href="ltv.html" class="active">대출가능액</a>
+        <a href="rental-yield.html">임대수익률</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="../index.html">홈</a> / <span>LTV 대출가능액 계산기</span>
+    </div>
+
+    <h1 class="calc-page-title">LTV 대출가능액 계산기</h1>
+    <p class="calc-page-desc">담보인정비율(LTV)에 따른 최대 대출 가능 금액과 필요 자기자본을 산출합니다.</p>
+
+    <div class="calc-layout">
+      <div class="calc-input-section">
+        <h2>담보 및 대출 정보</h2>
+
+        <div class="form-group">
+          <label class="form-label">주택 가격 (시가)</label>
+          <div class="input-with-unit">
+            <input type="text" class="form-input" id="housePrice" placeholder="주택 매매가 입력" />
+            <span class="input-unit">원</span>
+          </div>
+          <span class="korean-amount" id="housePriceKr"></span>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">LTV 비율</label>
+          <div class="slider-container">
+            <input type="range" class="form-slider" id="ltvRatio" min="10" max="80" value="50" step="5" />
+            <span class="slider-value" id="ltvRatioValue">50%</span>
+          </div>
+          <span class="form-hint">조정지역 일반: 50% / 비조정지역: 70% / 생애최초: 80%</span>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">선순위 대출 잔액</label>
+          <div class="input-with-unit">
+            <input type="text" class="form-input" id="priorLoan" placeholder="기존 담보대출 잔액" />
+            <span class="input-unit">원</span>
+          </div>
+          <span class="korean-amount" id="priorLoanKr"></span>
+          <span class="form-hint">기존 주택담보대출 잔액 (없으면 0)</span>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">전세보증금 (임차보증금)</label>
+          <div class="input-with-unit">
+            <input type="text" class="form-input" id="deposit" placeholder="전세보증금" />
+            <span class="input-unit">원</span>
+          </div>
+          <span class="korean-amount" id="depositKr"></span>
+          <span class="form-hint">임대 목적이 아니면 0으로 두세요</span>
+        </div>
+
+        <div class="info-box">
+          <p><strong>대출가능액</strong> = (주택가격 × LTV) − 선순위 대출 − 전세보증금<br/>
+          <strong>필요 자기자본</strong> = 주택가격 − 대출가능액</p>
+        </div>
+      </div>
+
+      <div class="calc-result-section">
+        <div class="result-header">
+          <h2>최대 대출 가능액</h2>
+          <div class="result-main-value" id="resultLoan">0<small>원</small></div>
+          <div class="result-sub-text" id="resultLoanKr"></div>
+        </div>
+        <div class="result-details">
+          <div class="result-row">
+            <span class="result-row-label">주택 가격</span>
+            <span class="result-row-value" id="resultHousePrice">0원</span>
+          </div>
+          <div class="result-row">
+            <span class="result-row-label">LTV 적용 한도</span>
+            <span class="result-row-value" id="resultLtvLimit">0원</span>
+          </div>
+          <div class="result-row">
+            <span class="result-row-label">선순위 대출 차감</span>
+            <span class="result-row-value" id="resultPriorLoan">0원</span>
+          </div>
+          <div class="result-row">
+            <span class="result-row-label">전세보증금 차감</span>
+            <span class="result-row-value" id="resultDeposit">0원</span>
+          </div>
+          <div class="result-row highlight">
+            <span class="result-row-label">필요 자기자본</span>
+            <span class="result-row-value" id="resultOwnCapital">0원</span>
+          </div>
+        </div>
+
+        <div class="result-chart">
+          <h3>자금 구성</h3>
+          <div class="bar-chart">
+            <div class="bar-item">
+              <span class="bar-label">대출</span>
+              <div class="bar-track"><div class="bar-fill blue" id="barLoan" style="width:0%"></div></div>
+              <span class="bar-amount" id="barLoanAmt">0원</span>
+            </div>
+            <div class="bar-item">
+              <span class="bar-label">자기자본</span>
+              <div class="bar-track"><div class="bar-fill green" id="barOwn" style="width:0%"></div></div>
+              <span class="bar-amount" id="barOwnAmt">0원</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <p>본 계산기는 참고용이며, 실제 거래 시 전문가 상담을 권장합니다.</p>
+  </footer>
+
+  <script src="../js/common.js"></script>
+  <script src="../js/calculators/ltv.js"></script>
+</body>
+</html>

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>부동산 계산기 모음</title>
+  <link rel="stylesheet" href="css/common.css" />
+  <link rel="stylesheet" href="css/dashboard.css" />
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header-inner">
+      <a href="index.html" class="header-logo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="4" y="2" width="16" height="20" rx="2"/>
+          <line x1="8" y1="6" x2="16" y2="6"/>
+          <line x1="8" y1="10" x2="16" y2="10"/>
+          <line x1="8" y1="14" x2="12" y2="14"/>
+        </svg>
+        부동산 계산기
+      </a>
+      <button class="menu-toggle" aria-label="메뉴">&#9776;</button>
+      <nav class="header-nav">
+        <a href="index.html" class="active">홈</a>
+        <a href="pages/brokerage-fee.html">중개보수</a>
+        <a href="pages/acquisition-tax.html">취득세</a>
+        <a href="pages/property-tax.html">재산세</a>
+        <a href="pages/dti-dsr.html">DTI/DSR</a>
+        <a href="pages/ltv.html">대출가능액</a>
+        <a href="pages/rental-yield.html">임대수익률</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <h1>부동산 계산, 쉽고 빠르게</h1>
+    <p>세금, 대출, 수수료까지 — 부동산 거래에 필요한 모든 계산을 한곳에서</p>
+  </section>
+
+  <!-- Category Tabs -->
+  <div class="container">
+    <div class="category-tabs">
+      <button class="tab-btn active" data-category="all">전체</button>
+      <button class="tab-btn" data-category="tax">세금</button>
+      <button class="tab-btn" data-category="loan">대출</button>
+      <button class="tab-btn" data-category="fee">수수료</button>
+      <button class="tab-btn" data-category="income">수익</button>
+    </div>
+
+    <!-- Card Grid -->
+    <div class="card-grid">
+
+      <!-- 중개보수 -->
+      <a href="pages/brokerage-fee.html" class="calc-card" data-category="fee">
+        <div class="calc-card-icon fee">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg>
+        </div>
+        <h3>중개보수 계산기</h3>
+        <p>부동산 매매·전세·월세 거래 시 공인중개사 중개수수료를 간편하게 계산합니다.</p>
+        <div class="calc-card-footer">
+          <span class="calc-card-tag fee">수수료</span>
+          <span class="calc-card-arrow">&rarr;</span>
+        </div>
+      </a>
+
+      <!-- 취득세 -->
+      <a href="pages/acquisition-tax.html" class="calc-card" data-category="tax">
+        <div class="calc-card-icon tax">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        </div>
+        <h3>취득세 계산기</h3>
+        <p>주택, 토지, 상가 등 부동산 취득 시 납부해야 할 취득세를 계산합니다.</p>
+        <div class="calc-card-footer">
+          <span class="calc-card-tag tax">세금</span>
+          <span class="calc-card-arrow">&rarr;</span>
+        </div>
+      </a>
+
+      <!-- 재산세 -->
+      <a href="pages/property-tax.html" class="calc-card" data-category="tax">
+        <div class="calc-card-icon tax">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+        </div>
+        <h3>재산세 계산기</h3>
+        <p>보유 부동산의 공시가격 기준 재산세 및 도시지역분을 계산합니다.</p>
+        <div class="calc-card-footer">
+          <span class="calc-card-tag tax">세금</span>
+          <span class="calc-card-arrow">&rarr;</span>
+        </div>
+      </a>
+
+      <!-- 양도소득세 (외부 링크) -->
+      <a href="https://sell-ten.vercel.app/" target="_blank" rel="noopener noreferrer" class="calc-card" data-category="tax">
+        <span class="external-badge">외부 링크</span>
+        <div class="calc-card-icon external">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15,3 21,3 21,9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </div>
+        <h3>양도소득세 계산기</h3>
+        <p>부동산 매도 시 발생하는 양도소득세를 상세하게 시뮬레이션합니다.</p>
+        <div class="calc-card-footer">
+          <span class="calc-card-tag external">외부 서비스</span>
+          <span class="calc-card-arrow">&rarr;</span>
+        </div>
+      </a>
+
+      <!-- DTI/DSR -->
+      <a href="pages/dti-dsr.html" class="calc-card" data-category="loan">
+        <div class="calc-card-icon loan">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+        </div>
+        <h3>DTI / DSR 계산기</h3>
+        <p>총부채상환비율(DTI)과 총부채원리금상환비율(DSR)을 계산합니다.</p>
+        <div class="calc-card-footer">
+          <span class="calc-card-tag loan">대출</span>
+          <span class="calc-card-arrow">&rarr;</span>
+        </div>
+      </a>
+
+      <!-- LTV 대출가능액 -->
+      <a href="pages/ltv.html" class="calc-card" data-category="loan">
+        <div class="calc-card-icon loan">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>
+        </div>
+        <h3>LTV 대출가능액 계산기</h3>
+        <p>담보인정비율(LTV)에 따른 최대 대출 가능 금액을 산출합니다.</p>
+        <div class="calc-card-footer">
+          <span class="calc-card-tag loan">대출</span>
+          <span class="calc-card-arrow">&rarr;</span>
+        </div>
+      </a>
+
+      <!-- 임대수익률 -->
+      <a href="pages/rental-yield.html" class="calc-card" data-category="income">
+        <div class="calc-card-icon income">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23,6 13.5,15.5 8.5,10.5 1,18"/><polyline points="17,6 23,6 23,12"/></svg>
+        </div>
+        <h3>임대수익률 계산기</h3>
+        <p>매입가 대비 연간 임대 수익률과 실질 수익률을 분석합니다.</p>
+        <div class="calc-card-footer">
+          <span class="calc-card-tag income">수익</span>
+          <span class="calc-card-arrow">&rarr;</span>
+        </div>
+      </a>
+
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>본 계산기는 참고용이며, 실제 거래 시 전문가 상담을 권장합니다.</p>
+  </footer>
+
+  <script src="js/common.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>

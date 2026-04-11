@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>중개보수 계산기 - 부동산 계산기</title>
+  <link rel="stylesheet" href="../css/common.css" />
+  <link rel="stylesheet" href="../css/calculator.css" />
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header-inner">
+      <a href="../index.html" class="header-logo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="12" y2="14"/></svg>
+        부동산 계산기
+      </a>
+      <button class="menu-toggle" aria-label="메뉴">&#9776;</button>
+      <nav class="header-nav">
+        <a href="../index.html">홈</a>
+        <a href="brokerage-fee.html" class="active">중개보수</a>
+        <a href="acquisition-tax.html">취득세</a>
+        <a href="property-tax.html">재산세</a>
+        <a href="dti-dsr.html">DTI/DSR</a>
+        <a href="ltv.html">대출가능액</a>
+        <a href="rental-yield.html">임대수익률</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="container">
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+      <a href="../index.html">홈</a> / <span>중개보수 계산기</span>
+    </div>
+
+    <h1 class="calc-page-title">중개보수 계산기</h1>
+    <p class="calc-page-desc">부동산 거래 유형과 금액에 따른 공인중개사 중개보수를 계산합니다.</p>
+
+    <div class="calc-layout">
+      <!-- Input -->
+      <div class="calc-input-section">
+        <h2>거래 정보 입력</h2>
+
+        <div class="form-group">
+          <label class="form-label">거래 유형</label>
+          <div class="radio-group" id="dealType">
+            <button class="radio-btn active" data-value="매매">매매</button>
+            <button class="radio-btn" data-value="전세">전세</button>
+            <button class="radio-btn" data-value="월세">월세</button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">거래 금액</label>
+          <div class="input-with-unit">
+            <input type="text" class="form-input" id="dealAmount" placeholder="거래 금액 입력" />
+            <span class="input-unit">원</span>
+          </div>
+          <span class="korean-amount" id="dealAmountKr"></span>
+          <span class="form-hint">매매가 또는 보증금을 입력하세요</span>
+        </div>
+
+        <div class="form-group" id="monthlyRentGroup" style="display:none;">
+          <label class="form-label">월세</label>
+          <div class="input-with-unit">
+            <input type="text" class="form-input" id="monthlyRent" placeholder="월세 금액 입력" />
+            <span class="input-unit">원</span>
+          </div>
+          <span class="korean-amount" id="monthlyRentKr"></span>
+        </div>
+
+        <div class="info-box">
+          <p><strong>참고</strong> 중개보수는 거래 금액 구간별 상한 요율로 계산되며, 실제 수수료는 중개사와 협의하여 결정됩니다.</p>
+        </div>
+      </div>
+
+      <!-- Result -->
+      <div class="calc-result-section">
+        <div class="result-header">
+          <h2>예상 중개보수</h2>
+          <div class="result-main-value" id="resultFee">0<small>원</small></div>
+          <div class="result-sub-text" id="resultFeeKr"></div>
+        </div>
+        <div class="result-details">
+          <div class="result-row">
+            <span class="result-row-label">거래 유형</span>
+            <span class="result-row-value" id="resultDealType">매매</span>
+          </div>
+          <div class="result-row">
+            <span class="result-row-label">거래 금액</span>
+            <span class="result-row-value" id="resultDealAmount">0원</span>
+          </div>
+          <div class="result-row">
+            <span class="result-row-label">적용 요율</span>
+            <span class="result-row-value" id="resultRate">0%</span>
+          </div>
+          <div class="result-row">
+            <span class="result-row-label">요율 한도액</span>
+            <span class="result-row-value" id="resultLimit">-</span>
+          </div>
+          <div class="result-row highlight">
+            <span class="result-row-label">부가세(10%) 포함</span>
+            <span class="result-row-value" id="resultWithVat">0원</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <p>본 계산기는 참고용이며, 실제 거래 시 전문가 상담을 권장합니다.</p>
+  </footer>
+
+  <script src="../js/common.js"></script>
+  <script src="../js/calculators/brokerage-fee.js"></script>
+</body>
+</html>

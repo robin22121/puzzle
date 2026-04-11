@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>취득세 계산기 - 부동산 계산기</title>
+  <link rel="stylesheet" href="../css/common.css" />
+  <link rel="stylesheet" href="../css/calculator.css" />
+</head>
+<body>
+
+  <header class="header">
+    <div class="header-inner">
+      <a href="../index.html" class="header-logo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="12" y2="14"/></svg>
+        부동산 계산기
+      </a>
+      <button class="menu-toggle" aria-label="메뉴">&#9776;</button>
+      <nav class="header-nav">
+        <a href="../index.html">홈</a>
+        <a href="brokerage-fee.html">중개보수</a>
+        <a href="acquisition-tax.html" class="active">취득세</a>
+        <a href="property-tax.html">재산세</a>
+        <a href="dti-dsr.html">DTI/DSR</a>
+        <a href="ltv.html">대출가능액</a>
+        <a href="rental-yield.html">임대수익률</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="../index.html">홈</a> / <span>취득세 계산기</span>
+    </div>
+
+    <h1 class="calc-page-title">취득세 계산기</h1>
+    <p class="calc-page-desc">주택 취득 시 납부해야 할 취득세, 지방교육세, 농어촌특별세를 계산합니다.</p>
+
+    <div class="calc-layout">
+      <div class="calc-input-section">
+        <h2>취득 정보 입력</h2>
+
+        <div class="form-group">
+          <label class="form-label">부동산 유형</label>
+          <div class="radio-group" id="propertyType">
+            <button class="radio-btn active" data-value="주택">주택</button>
+            <button class="radio-btn" data-value="상가">상가/오피스텔</button>
+            <button class="radio-btn" data-value="토지">토지</button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">취득가액</label>
+          <div class="input-with-unit">
+            <input type="text" class="form-input" id="acquisitionPrice" placeholder="매매가 입력" />
+            <span class="input-unit">원</span>
+          </div>
+          <span class="korean-amount" id="acquisitionPriceKr"></span>
+        </div>
+
+        <div class="form-group" id="houseCountGroup">
+          <label class="form-label">주택 수</label>
+          <div class="radio-group" id="houseCount">
+            <button class="radio-btn active" data-value="1">1주택</button>
+            <button class="radio-btn" data-value="2">2주택</button>
+            <button class="radio-btn" data-value="3">3주택 이상</button>
+          </div>
+        </div>
+
+        <div class="form-group" id="areaGroup">
+          <label class="form-label">전용면적</label>
+          <div class="radio-group" id="areaType">
+            <button class="radio-btn active" data-value="85이하">85m² 이하</button>
+            <button class="radio-btn" data-value="85초과">85m² 초과</button>
+          </div>
+        </div>
+
+        <div class="form-group" id="adjustedAreaGroup">
+          <label class="form-label">조정대상지역</label>
+          <div class="radio-group" id="adjustedArea">
+            <button class="radio-btn active" data-value="no">비조정지역</button>
+            <button class="radio-btn" data-value="yes">조정대상지역</button>
+          </div>
+        </div>
+
+        <div class="info-box">
+          <p><strong>참고</strong> 조정대상지역 2주택 이상은 중과세율이 적용됩니다. 정확한 세액은 관할 세무서에 문의하세요.</p>
+        </div>
+      </div>
+
+      <div class="calc-result-section">
+        <div class="result-header">
+          <h2>예상 취득세 합계</h2>
+          <div class="result-main-value" id="resultTotal">0<small>원</small></div>
+          <div class="result-sub-text" id="resultTotalKr"></div>
+        </div>
+        <div class="result-details">
+          <div class="result-row">
+            <span class="result-row-label">취득가액</span>
+            <span class="result-row-value" id="resultPrice">0원</span>
+          </div>
+          <div class="result-row">
+            <span class="result-row-label">취득세율</span>
+            <span class="result-row-value" id="resultTaxRate">0%</span>
+          </div>
+          <div class="result-row">
+            <span class="result-row-label">취득세</span>
+            <span class="result-row-value" id="resultAcqTax">0원</span>
+          </div>
+          <div class="result-row">
+            <span class="result-row-label">지방교육세</span>
+            <span class="result-row-value" id="resultEduTax">0원</span>
+          </div>
+          <div class="result-row">
+            <span class="result-row-label">농어촌특별세</span>
+            <span class="result-row-value" id="resultFarmTax">0원</span>
+          </div>
+          <div class="result-row highlight">
+            <span class="result-row-label">납부 세액 합계</span>
+            <span class="result-row-value" id="resultTotalHighlight">0원</span>
+          </div>
+        </div>
+
+        <div class="result-chart">
+          <h3>세금 구성 비율</h3>
+          <div class="bar-chart" id="taxChart">
+            <div class="bar-item">
+              <span class="bar-label">취득세</span>
+              <div class="bar-track"><div class="bar-fill blue" id="barAcq" style="width:0%"></div></div>
+              <span class="bar-amount" id="barAcqAmt">0원</span>
+            </div>
+            <div class="bar-item">
+              <span class="bar-label">지방교육세</span>
+              <div class="bar-track"><div class="bar-fill green" id="barEdu" style="width:0%"></div></div>
+              <span class="bar-amount" id="barEduAmt">0원</span>
+            </div>
+            <div class="bar-item">
+              <span class="bar-label">농특세</span>
+              <div class="bar-track"><div class="bar-fill orange" id="barFarm" style="width:0%"></div></div>
+              <span class="bar-amount" id="barFarmAmt">0원</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <p>본 계산기는 참고용이며, 실제 거래 시 전문가 상담을 권장합니다.</p>
+  </footer>
+
+  <script src="../js/common.js"></script>
+  <script src="../js/calculators/acquisition-tax.js"></script>
+</body>
+</html>

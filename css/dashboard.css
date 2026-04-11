@@ -1,0 +1,230 @@
+/* ===== Hero Section ===== */
+.hero {
+  background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+  color: var(--white);
+  padding: 48px 20px;
+  text-align: center;
+}
+
+.hero h1 {
+  font-size: 2rem;
+  font-weight: 800;
+  margin-bottom: 10px;
+}
+
+.hero p {
+  font-size: 1.05rem;
+  color: rgba(255, 255, 255, 0.75);
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+/* ===== Category Tabs ===== */
+.category-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  padding: 24px 20px 0;
+  flex-wrap: wrap;
+}
+
+.tab-btn {
+  padding: 8px 20px;
+  border-radius: 50px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  background: var(--white);
+  color: var(--gray-600);
+  border: 2px solid var(--gray-200);
+  transition: var(--transition);
+}
+
+.tab-btn:hover {
+  border-color: var(--blue);
+  color: var(--blue);
+}
+
+.tab-btn.active {
+  background: var(--blue);
+  color: var(--white);
+  border-color: var(--blue);
+}
+
+/* ===== Card Grid ===== */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+  padding: 24px 0 40px;
+}
+
+/* ===== Calculator Card ===== */
+.calc-card {
+  background: var(--white);
+  border-radius: var(--radius-md);
+  padding: 28px 24px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--gray-200);
+  transition: var(--transition);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  position: relative;
+  overflow: hidden;
+}
+
+.calc-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--blue);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.calc-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-hover);
+  border-color: var(--blue);
+}
+
+.calc-card:hover::before {
+  transform: scaleX(1);
+}
+
+.calc-card-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+}
+
+.calc-card-icon.tax {
+  background: var(--blue-bg);
+  color: var(--blue);
+}
+
+.calc-card-icon.loan {
+  background: var(--green-bg);
+  color: var(--green);
+}
+
+.calc-card-icon.fee {
+  background: var(--orange-bg);
+  color: var(--orange);
+}
+
+.calc-card-icon.income {
+  background: var(--red-bg);
+  color: var(--red);
+}
+
+.calc-card-icon.external {
+  background: #F3E8FD;
+  color: #8E44AD;
+}
+
+.calc-card h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--gray-900);
+}
+
+.calc-card p {
+  font-size: 0.9rem;
+  color: var(--gray-500);
+  line-height: 1.5;
+  flex: 1;
+}
+
+.calc-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 4px;
+}
+
+.calc-card-tag {
+  font-size: 0.75rem;
+  padding: 4px 10px;
+  border-radius: 50px;
+  font-weight: 600;
+}
+
+.calc-card-tag.tax {
+  background: var(--blue-bg);
+  color: var(--blue);
+}
+
+.calc-card-tag.loan {
+  background: var(--green-bg);
+  color: var(--green);
+}
+
+.calc-card-tag.fee {
+  background: var(--orange-bg);
+  color: var(--orange);
+}
+
+.calc-card-tag.income {
+  background: var(--red-bg);
+  color: var(--red);
+}
+
+.calc-card-tag.external {
+  background: #F3E8FD;
+  color: #8E44AD;
+}
+
+.calc-card-arrow {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--gray-100);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gray-500);
+  transition: var(--transition);
+  font-size: 1rem;
+}
+
+.calc-card:hover .calc-card-arrow {
+  background: var(--blue);
+  color: var(--white);
+}
+
+/* ===== External Card Badge ===== */
+.external-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  font-size: 0.7rem;
+  padding: 3px 8px;
+  background: #F3E8FD;
+  color: #8E44AD;
+  border-radius: 50px;
+  font-weight: 600;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+  .hero {
+    padding: 36px 20px;
+  }
+
+  .hero h1 {
+    font-size: 1.6rem;
+  }
+
+  .card-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
