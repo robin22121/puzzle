@@ -6,6 +6,25 @@
   <title>LTV 대출가능액 계산기 - 부동산 계산기</title>
   <link rel="stylesheet" href="../css/common.css" />
   <link rel="stylesheet" href="../css/calculator.css" />
+  <style>
+    .go-repayment-btn {
+      display: block;
+      margin-top: 16px;
+      padding: 14px 20px;
+      background: linear-gradient(135deg, #27AE60, #2ECC71);
+      color: #fff;
+      text-align: center;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      transition: all 0.25s ease;
+      box-shadow: 0 4px 12px rgba(39,174,96,0.3);
+    }
+    .go-repayment-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(39,174,96,0.4);
+    }
+  </style>
 </head>
 <body>
 
@@ -23,6 +42,7 @@
         <a href="property-tax.html">재산세</a>
         <a href="dti-dsr.html">DTI/DSR</a>
         <a href="ltv.html" class="active">대출가능액</a>
+        <a href="repayment.html">상환스케줄</a>
         <a href="rental-yield.html">임대수익률</a>
       </nav>
     </div>
@@ -127,6 +147,9 @@
               <span class="bar-amount" id="barOwnAmt">0원</span>
             </div>
           </div>
+          <a href="#" id="goRepayment" class="go-repayment-btn" style="display:none;">
+            상환 스케줄 계산하기 &rarr;
+          </a>
         </div>
       </div>
     </div>

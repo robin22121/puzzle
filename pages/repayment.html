@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>상환 스케줄 계산기 - 부동산 계산기</title>
+  <link rel="stylesheet" href="../css/common.css" />
+  <link rel="stylesheet" href="../css/calculator.css" />
+  <style>
+    /* 상환 스케줄 전용 스타일 */
+    .schedule-table-wrap {
+      max-height: 480px;
+      overflow-y: auto;
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-sm);
+      margin-top: 16px;
+    }
+
+    .schedule-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+    }
+
+    .schedule-table thead {
+      position: sticky;
+      top: 0;
+      z-index: 1;
+    }
+
+    .schedule-table th {
+      background: var(--navy);
+      color: var(--white);
+      padding: 10px 12px;
+      text-align: right;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .schedule-table th:first-child {
+      text-align: center;
+    }
+
+    .schedule-table td {
+      padding: 9px 12px;
+      text-align: right;
+      border-bottom: 1px solid var(--gray-100);
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      color: var(--gray-700);
+    }
+
+    .schedule-table td:first-child {
+      text-align: center;
+      color: var(--gray-500);
+      font-family: var(--font-main);
+    }
+
+    .schedule-table tbody tr:hover {
+      background: var(--blue-bg);
+    }
+
+    .schedule-table tbody tr.year-row {
+      background: var(--gray-50);
+      font-weight: 700;
+    }
+
+    .schedule-table tbody tr.year-row td {
+      color: var(--navy);
+      font-weight: 700;
+      border-bottom: 2px solid var(--gray-200);
+    }
+
+    /* 요약 카드 */
+    .summary-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .summary-card {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-sm);
+      padding: 16px;
+      text-align: center;
+    }
+
+    .summary-card-label {
+      font-size: 0.78rem;
+      color: var(--gray-500);
+      margin-bottom: 6px;
+    }
+
+    .summary-card-value {
+      font-size: 1.2rem;
+      font-weight: 800;
+      font-family: var(--font-mono);
+      color: var(--gray-900);
+    }
+
+    .summary-card-value small {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--gray-500);
+    }
+
+    .summary-card-sub {
+      font-size: 0.75rem;
+      color: var(--blue);
+      margin-top: 2px;
+    }
+
+    .summary-card.primary {
+      border-color: var(--blue);
+      background: var(--blue-bg);
+    }
+
+    .summary-card.primary .summary-card-value {
+      color: var(--blue);
+    }
+
+    /* 보기 토글 */
+    .view-toggle {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .view-toggle-btn {
+      padding: 6px 16px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      border: 2px solid var(--gray-200);
+      border-radius: 50px;
+      background: var(--white);
+      color: var(--gray-600);
+      transition: var(--transition);
+    }
+
+    .view-toggle-btn.active {
+      background: var(--navy);
+      border-color: var(--navy);
+      color: var(--white);
+    }
+
+    /* 연결 배너 */
+    .link-banner {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 20px;
+      background: linear-gradient(135deg, var(--green-bg), #d4f5e2);
+      border: 1px solid var(--green);
+      border-radius: var(--radius-sm);
+      margin-bottom: 20px;
+      font-size: 0.88rem;
+      color: var(--gray-800);
+    }
+
+    .link-banner strong {
+      color: var(--green);
+    }
+
+    .link-banner-icon {
+      font-size: 1.2rem;
+    }
+
+    .full-width-section {
+      grid-column: 1 / -1;
+    }
+
+    @media (max-width: 768px) {
+      .summary-cards {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <div class="header-inner">
+      <a href="../index.html" class="header-logo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="12" y2="14"/></svg>
+        부동산 계산기
+      </a>
+      <button class="menu-toggle" aria-label="메뉴">&#9776;</button>
+      <nav class="header-nav">
+        <a href="../index.html">홈</a>
+        <a href="brokerage-fee.html">중개보수</a>
+        <a href="acquisition-tax.html">취득세</a>
+        <a href="property-tax.html">재산세</a>
+        <a href="dti-dsr.html">DTI/DSR</a>
+        <a href="ltv.html">대출가능액</a>
+        <a href="repayment.html" class="active">상환스케줄</a>
+        <a href="rental-yield.html">임대수익률</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="../index.html">홈</a> / <span>상환 스케줄 계산기</span>
+    </div>
+
+    <!-- LTV에서 넘어온 경우 배너 표시 -->
+    <div class="link-banner" id="ltvBanner" style="display:none;">
+      <span class="link-banner-icon">&#8592;</span>
+      <span><strong>LTV 계산기</strong>에서 연결되었습니다. 대출 금액이 자동으로 입력되었습니다.</span>
+    </div>
+
+    <h1 class="calc-page-title">상환 스케줄 계산기</h1>
+    <p class="calc-page-desc">대출금액, 이자율, 상환방법, 기간에 따른 월별·연도별 상환 스케줄을 확인합니다.</p>
+
+    <div class="calc-layout">
+      <div class="calc-input-section">
+        <h2>대출 조건 입력</h2>
+
+        <div class="form-group">
+          <label class="form-label">대출 금액</label>
+          <div class="input-with-unit">
+            <input type="text" class="form-input" id="loanAmount" placeholder="대출 금액 입력" />
+            <span class="input-unit">원</span>
+          </div>
+          <span class="korean-amount" id="loanAmountKr"></span>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">연 이자율</label>
+          <div class="slider-container">
+            <input type="range" class="form-slider" id="interestRate" min="1" max="10" value="4" step="0.1" />
+            <span class="slider-value" id="interestRateValue">4%</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">대출 기간</label>
+          <select class="form-select" id="loanPeriod">
+            <option value="5">5년 (60개월)</option>
+            <option value="10">10년 (120개월)</option>
+            <option value="15">15년 (180개월)</option>
+            <option value="20" selected>20년 (240개월)</option>
+            <option value="25">25년 (300개월)</option>
+            <option value="30">30년 (360개월)</option>
+            <option value="35">35년 (420개월)</option>
+            <option value="40">40년 (480개월)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">상환 방식</label>
+          <div class="radio-group" id="repaymentMethod">
+            <button class="radio-btn active" data-value="equalPrincipalInterest">원리금균등</button>
+            <button class="radio-btn" data-value="equalPrincipal">원금균등</button>
+            <button class="radio-btn" data-value="bullet">만기일시</button>
+          </div>
+        </div>
+
+        <div class="form-group" id="gracePeriodGroup">
+          <label class="form-label">거치 기간</label>
+          <select class="form-select" id="gracePeriod">
+            <option value="0" selected>없음</option>
+            <option value="6">6개월</option>
+            <option value="12">1년</option>
+            <option value="24">2년</option>
+            <option value="36">3년</option>
+            <option value="60">5년</option>
+          </select>
+          <span class="form-hint">거치 기간 동안은 이자만 납부합니다</span>
+        </div>
+
+        <div class="info-box">
+          <p>
+            <strong>원리금균등</strong> 매월 동일한 금액(원금+이자)을 상환<br/>
+            <strong>원금균등</strong> 매월 동일한 원금 + 잔액 기준 이자를 상환<br/>
+            <strong>만기일시</strong> 매월 이자만 납부, 만기에 원금 일시 상환
+          </p>
+        </div>
+      </div>
+
+      <div class="calc-result-section">
+        <div class="result-header">
+          <h2>월 상환액</h2>
+          <div class="result-main-value" id="resultMonthly">0<small>원</small></div>
+          <div class="result-sub-text" id="resultMonthlyKr"></div>
+        </div>
+        <div class="result-details">
+          <div class="result-row">
+            <span class="result-row-label">대출 금액</span>
+            <span class="result-row-value" id="resultLoanAmt">0원</span>
+          </div>
+          <div class="result-row">
+            <span class="result-row-label">대출 기간</span>
+            <span class="result-row-value" id="resultPeriod">-</span>
+          </div>
+          <div class="result-row">
+            <span class="result-row-label">상환 방식</span>
+            <span class="result-row-value" id="resultMethod">-</span>
+          </div>
+          <div class="result-row">
+            <span class="result-row-label">총 상환 원금</span>
+            <span class="result-row-value" id="resultTotalPrincipal">0원</span>
+          </div>
+          <div class="result-row">
+            <span class="result-row-label">총 이자</span>
+            <span class="result-row-value" id="resultTotalInterest">0원</span>
+          </div>
+          <div class="result-row highlight">
+            <span class="result-row-label">총 상환액</span>
+            <span class="result-row-value" id="resultTotalPayment">0원</span>
+          </div>
+        </div>
+
+        <div class="result-chart">
+          <h3>원금 vs 이자 비율</h3>
+          <div class="bar-chart">
+            <div class="bar-item">
+              <span class="bar-label">원금</span>
+              <div class="bar-track"><div class="bar-fill blue" id="barPrincipal" style="width:0%"></div></div>
+              <span class="bar-amount" id="barPrincipalAmt">0원</span>
+            </div>
+            <div class="bar-item">
+              <span class="bar-label">이자</span>
+              <div class="bar-track"><div class="bar-fill orange" id="barInterest" style="width:0%"></div></div>
+              <span class="bar-amount" id="barInterestAmt">0원</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 상환 스케줄 테이블 (풀 너비) -->
+      <div class="full-width-section" id="scheduleSection" style="display:none;">
+        <div class="calc-input-section">
+          <h2>상환 스케줄</h2>
+
+          <div class="summary-cards" id="summaryCards"></div>
+
+          <div class="view-toggle">
+            <button class="view-toggle-btn active" data-view="yearly" id="viewYearly">연도별</button>
+            <button class="view-toggle-btn" data-view="monthly" id="viewMonthly">월별 전체</button>
+          </div>
+
+          <div class="schedule-table-wrap">
+            <table class="schedule-table">
+              <thead>
+                <tr>
+                  <th id="colHeader">연차</th>
+                  <th>상환액</th>
+                  <th>원금</th>
+                  <th>이자</th>
+                  <th>잔액</th>
+                </tr>
+              </thead>
+              <tbody id="scheduleBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <p>본 계산기는 참고용이며, 실제 거래 시 전문가 상담을 권장합니다.</p>
+  </footer>
+
+  <script src="../js/common.js"></script>
+  <script src="../js/calculators/repayment.js"></script>
+</body>
+</html>

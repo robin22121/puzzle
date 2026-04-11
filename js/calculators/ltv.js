@@ -31,6 +31,15 @@ function calculate() {
   document.getElementById('barOwn').style.width = (ownCapital / total * 100) + '%';
   document.getElementById('barLoanAmt').textContent = formatNumber(loanAmount) + '원';
   document.getElementById('barOwnAmt').textContent = formatNumber(ownCapital) + '원';
+
+  // 상환 스케줄 연동 버튼
+  const repayBtn = document.getElementById('goRepayment');
+  if (loanAmount > 0) {
+    repayBtn.style.display = 'block';
+    repayBtn.href = 'repayment.html?loan=' + loanAmount;
+  } else {
+    repayBtn.style.display = 'none';
+  }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
