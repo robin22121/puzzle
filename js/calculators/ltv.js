@@ -17,7 +17,7 @@ function calculate() {
   const ownCapital = Math.max(housePrice - loanAmount, 0);
 
   // 결과 표시
-  document.getElementById('resultLoan').innerHTML = formatNumber(loanAmount) + '<small>원</small>';
+  setResultValue(document.getElementById('resultLoan'), formatNumber(loanAmount), '원');
   document.getElementById('resultLoanKr').textContent = toKoreanMoney(loanAmount);
   document.getElementById('resultHousePrice').textContent = formatNumber(housePrice) + '원';
   document.getElementById('resultLtvLimit').textContent = formatNumber(ltvLimit) + '원';
@@ -36,7 +36,7 @@ function calculate() {
   const repayBtn = document.getElementById('goRepayment');
   if (loanAmount > 0) {
     repayBtn.style.display = 'block';
-    repayBtn.href = 'repayment.html?loan=' + loanAmount;
+    repayBtn.href = 'repayment.html?loan=' + loanAmount + '&rate=4&period=20';
   } else {
     repayBtn.style.display = 'none';
   }

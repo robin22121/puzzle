@@ -116,6 +116,18 @@ function initMobileMenu() {
   }
 }
 
+/**
+ * 결과 메인 값 안전하게 표시 (XSS 방지)
+ * 예: setResultValue(el, '1,234,000', '원')
+ */
+function setResultValue(el, value, unit) {
+  el.textContent = '';
+  el.appendChild(document.createTextNode(value));
+  var small = document.createElement('small');
+  small.textContent = unit;
+  el.appendChild(small);
+}
+
 // 페이지 로드 시 공통 초기화
 document.addEventListener('DOMContentLoaded', () => {
   initMobileMenu();

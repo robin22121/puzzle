@@ -54,7 +54,7 @@ function calculate() {
   const feeWithVat = fee * 1.1;
 
   // 결과 표시
-  document.getElementById('resultFee').innerHTML = formatNumber(fee) + '<small>원</small>';
+  setResultValue(document.getElementById('resultFee'), formatNumber(fee), '원');
   document.getElementById('resultFeeKr').textContent = toKoreanMoney(fee);
   document.getElementById('resultDealType').textContent = dealType;
   document.getElementById('resultDealAmount').textContent = formatNumber(baseAmount) + '원';

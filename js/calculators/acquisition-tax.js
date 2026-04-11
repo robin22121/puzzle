@@ -10,19 +10,24 @@ function getHouseTaxRate(price, count, adjusted) {
   if (count === '1') {
     if (price <= 600000000) return 0.01;
     if (price <= 900000000) {
-      // 6~9억 구간: 점진적 세율
+      // 6~9억 구간: 점진적 세율 (1%~3%)
       return ((price / 100000000) * 2 / 3 - 3) / 100;
     }
     return 0.03;
   }
   // 2주택
   if (count === '2') {
-    if (adjusted === 'yes') return 0.08;
-    return 0.01; // 비조정 2주택 1~3%
+    if (adjusted === 'yes') return 0.08; // 조정지역 2주택 중과
+    // 비조정지역 2주택: 가격 구간별 일반 세율
+    if (price <= 600000000) return 0.01;
+    if (price <= 900000000) {
+      return ((price / 100000000) * 2 / 3 - 3) / 100;
+    }
+    return 0.03;
   }
   // 3주택 이상
-  if (adjusted === 'yes') return 0.12;
-  return 0.08;
+  if (adjusted === 'yes') return 0.12; // 조정지역 3주택 중과
+  return 0.08; // 비조정지역 3주택 중과
 }
 
 function calculate() {
@@ -60,7 +65,7 @@ function calculate() {
   const total = acqTax + eduTax + farmTax;
 
   // 결과 표시
-  document.getElementById('resultTotal').innerHTML = formatNumber(total) + '<small>원</small>';
+  setResultValue(document.getElementById('resultTotal'), formatNumber(total), '원');
   document.getElementById('resultTotalKr').textContent = toKoreanMoney(total);
   document.getElementById('resultPrice').textContent = formatNumber(price) + '원';
   document.getElementById('resultTaxRate').textContent = (taxRate * 100).toFixed(1) + '%';

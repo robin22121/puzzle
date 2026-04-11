@@ -28,7 +28,7 @@ function calculate() {
   const netYield = ownMoney > 0 ? (netIncome / ownMoney * 100) : 0;
 
   // 결과 표시
-  document.getElementById('resultYield').innerHTML = grossYield.toFixed(2) + '<small>%</small>';
+  setResultValue(document.getElementById('resultYield'), grossYield.toFixed(2), '%');
   document.getElementById('resultPurchase').textContent = formatNumber(purchasePrice) + '원';
   document.getElementById('resultOwnMoney').textContent = formatNumber(ownMoney) + '원';
   document.getElementById('resultAnnualIncome').textContent = formatNumber(annualIncome) + '원';

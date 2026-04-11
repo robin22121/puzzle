@@ -39,7 +39,7 @@ function calculate() {
   }
 
   // 결과 표시
-  document.getElementById('resultDSR').innerHTML = dsr.toFixed(1) + '<small>%</small>';
+  setResultValue(document.getElementById('resultDSR'), dsr.toFixed(1), '%');
   document.getElementById('resultStatus').textContent = status;
   document.getElementById('resultIncome').textContent = formatNumber(annualIncome) + '원';
   document.getElementById('resultMortgageInterest').textContent = formatNumber(annualInterest) + '원';

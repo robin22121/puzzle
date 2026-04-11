@@ -16,6 +16,16 @@ function generateSchedule(principal, annualRate, years, method, graceMonths) {
   const schedule = [];
   let balance = principal;
 
+  // 거치기간 이후 상환 개월 수
+  const repayMonths = totalMonths - graceMonths;
+
+  // 원리금균등상환 월 상환액 사전 계산 (거치 후 잔액 기준)
+  let equalPayment = 0;
+  if (method === 'equalPrincipalInterest' && repayMonths > 0 && monthlyRate > 0) {
+    equalPayment = balance * monthlyRate * Math.pow(1 + monthlyRate, repayMonths) /
+      (Math.pow(1 + monthlyRate, repayMonths) - 1);
+  }
+
   for (let month = 1; month <= totalMonths; month++) {
     const isGrace = month <= graceMonths;
     let monthlyInterest = Math.round(balance * monthlyRate);
@@ -24,7 +34,7 @@ function generateSchedule(principal, annualRate, years, method, graceMonths) {
 
     if (method === 'bullet') {
       // 만기일시: 매월 이자만, 마지막달 원금 전액
-      monthlyPrincipal = (month === totalMonths) ? principal : 0;
+      monthlyPrincipal = (month === totalMonths) ? balance : 0;
       monthlyPayment = monthlyInterest + monthlyPrincipal;
 
     } else if (isGrace) {
@@ -33,17 +43,13 @@ function generateSchedule(principal, annualRate, years, method, graceMonths) {
       monthlyPayment = monthlyInterest;
 
     } else if (method === 'equalPrincipalInterest') {
-      // 원리금균등상환
-      const remainingMonths = totalMonths - graceMonths;
-      const payment = principal * monthlyRate * Math.pow(1 + monthlyRate, remainingMonths) /
-        (Math.pow(1 + monthlyRate, remainingMonths) - 1);
-      monthlyPayment = Math.round(payment);
+      // 원리금균등상환: 거치기간 종료 시점의 잔액 기준 고정 상환액
+      monthlyPayment = Math.round(equalPayment);
       monthlyPrincipal = monthlyPayment - monthlyInterest;
 
     } else if (method === 'equalPrincipal') {
-      // 원금균등상환
-      const remainingMonths = totalMonths - graceMonths;
-      monthlyPrincipal = Math.round(principal / remainingMonths);
+      // 원금균등상환: 거치 후 남은 기간으로 균등 분할
+      monthlyPrincipal = Math.round(principal / repayMonths);
       monthlyPayment = monthlyPrincipal + monthlyInterest;
     }
 
@@ -88,7 +94,7 @@ function calculate() {
   const firstPayment = schedule.length > 0 ? schedule[graceMonths > 0 ? graceMonths : 0].payment : 0;
 
   // 결과 헤더
-  document.getElementById('resultMonthly').innerHTML = formatNumber(firstPayment) + '<small>원</small>';
+  setResultValue(document.getElementById('resultMonthly'), formatNumber(firstPayment), '원');
   document.getElementById('resultMonthlyKr').textContent = toKoreanMoney(firstPayment);
   document.getElementById('resultLoanAmt').textContent = formatNumber(principal) + '원';
   document.getElementById('resultPeriod').textContent = years + '년 (' + (years * 12) + '개월)';

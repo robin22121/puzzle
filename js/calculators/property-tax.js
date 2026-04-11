@@ -41,7 +41,7 @@ function calculate() {
   else rateStr = '0.4%';
 
   // 결과 표시
-  document.getElementById('resultTotal').innerHTML = formatNumber(total) + '<small>원</small>';
+  setResultValue(document.getElementById('resultTotal'), formatNumber(total), '원');
   document.getElementById('resultTotalKr').textContent = toKoreanMoney(total);
   document.getElementById('resultOfficial').textContent = formatNumber(officialPrice) + '원';
   document.getElementById('resultTaxBase').textContent = formatNumber(taxBase) + '원';
