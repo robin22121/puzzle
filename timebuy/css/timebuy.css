@@ -1,0 +1,338 @@
+/* ===== 시간을 사세여 ===== */
+html {
+  scroll-padding-top: 72px;
+}
+
+.tb-hero {
+  padding: 64px 20px;
+}
+
+.tb-hero h1 {
+  word-break: keep-all;
+}
+
+.tb-hero-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 28px;
+  flex-wrap: wrap;
+}
+
+/* ===== Buttons ===== */
+.tb-btn {
+  display: inline-block;
+  padding: 12px 24px;
+  border-radius: 50px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  transition: var(--transition);
+}
+
+.tb-btn-primary {
+  background: var(--blue);
+  color: var(--white);
+  border: 2px solid var(--blue);
+}
+
+.tb-btn-primary:hover {
+  background: var(--blue-light);
+  border-color: var(--blue-light);
+}
+
+.tb-btn-outline {
+  background: transparent;
+  color: var(--white);
+  border: 2px solid rgba(255, 255, 255, 0.6);
+}
+
+.tb-btn-outline:hover {
+  border-color: var(--white);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* ===== Section ===== */
+.tb-section {
+  padding: 48px 0 0;
+}
+
+.tb-section-title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--navy);
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.tb-section-desc {
+  text-align: center;
+  color: var(--gray-600);
+  font-size: 0.95rem;
+  word-break: keep-all;
+}
+
+/* ===== Two-way market ===== */
+.tb-two-way {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  margin-top: 24px;
+}
+
+.tb-way {
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  box-shadow: var(--shadow-sm);
+}
+
+.tb-way h3 {
+  font-size: 1.1rem;
+  color: var(--navy);
+  margin: 10px 0 4px;
+}
+
+.tb-way p {
+  color: var(--gray-600);
+  font-size: 0.9rem;
+}
+
+.tb-way ul {
+  margin-top: 12px;
+  padding-left: 18px;
+  font-size: 0.9rem;
+  color: var(--gray-700);
+}
+
+.tb-way li + li {
+  margin-top: 4px;
+}
+
+.tb-way-badge {
+  display: inline-block;
+  padding: 2px 12px;
+  border-radius: 50px;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.tb-way-badge.sell {
+  background: var(--green-bg);
+  color: var(--green);
+}
+
+.tb-way-badge.buy {
+  background: var(--blue-bg);
+  color: var(--blue);
+}
+
+/* ===== Steps ===== */
+.tb-steps {
+  list-style: none;
+  counter-reset: step;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.tb-steps li {
+  counter-increment: step;
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.tb-steps li::before {
+  content: counter(step);
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--navy);
+  color: var(--white);
+  font-size: 0.8rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tb-steps strong {
+  color: var(--navy);
+}
+
+.tb-steps span {
+  font-size: 0.85rem;
+  color: var(--gray-600);
+  word-break: keep-all;
+}
+
+/* ===== Category cards ===== */
+.tb-cat-card {
+  cursor: pointer;
+}
+
+.tb-cat-card.soon {
+  cursor: default;
+  opacity: 0.6;
+}
+
+.tb-cat-card.soon:hover {
+  transform: none;
+  box-shadow: var(--shadow-sm);
+}
+
+.tb-cat-examples {
+  font-size: 0.85rem;
+  color: var(--gray-600);
+}
+
+.tb-cat-price {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--navy);
+}
+
+.calc-card-tag.low {
+  background: var(--green-bg);
+  color: var(--green);
+}
+
+.calc-card-tag.mid {
+  background: var(--orange-bg);
+  color: var(--orange);
+}
+
+.calc-card-tag.soon {
+  background: var(--gray-100);
+  color: var(--gray-600);
+}
+
+.calc-card-icon.low {
+  background: var(--green-bg);
+  color: var(--green);
+}
+
+.calc-card-icon.mid {
+  background: var(--orange-bg);
+  color: var(--orange);
+}
+
+.calc-card-icon.soon {
+  background: var(--gray-100);
+  color: var(--gray-600);
+}
+
+/* ===== Safety ===== */
+.tb-safety-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.tb-safety-item {
+  background: var(--white);
+  border-left: 4px solid var(--blue);
+  border-radius: var(--radius-sm);
+  padding: 16px 20px;
+  box-shadow: var(--shadow-sm);
+}
+
+.tb-safety-item h3 {
+  font-size: 1rem;
+  color: var(--navy);
+  margin-bottom: 4px;
+}
+
+.tb-safety-item p {
+  font-size: 0.88rem;
+  color: var(--gray-600);
+  word-break: keep-all;
+}
+
+.tb-banned {
+  margin-top: 20px;
+}
+
+.tb-banned h3 {
+  font-size: 1rem;
+  color: var(--red);
+  margin-bottom: 8px;
+}
+
+.tb-banned ul {
+  padding-left: 18px;
+  font-size: 0.9rem;
+}
+
+/* ===== Form ===== */
+.tb-form {
+  max-width: 560px;
+  margin: 24px auto 0;
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-md);
+  padding: 28px 24px;
+  box-shadow: var(--shadow-sm);
+}
+
+.tb-check {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  color: var(--gray-700);
+  margin-top: 8px;
+  cursor: pointer;
+}
+
+.tb-check input {
+  width: 18px;
+  height: 18px;
+}
+
+.tb-form-message {
+  min-height: 1.6em;
+  margin-top: 12px;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.tb-form-message.error {
+  color: var(--red);
+}
+
+.tb-form-message.success {
+  color: var(--green);
+}
+
+.tb-submit {
+  width: 100%;
+  margin-top: 8px;
+  font-size: 1rem;
+}
+
+.tb-submit:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.footer p + p {
+  margin-top: 4px;
+}
+
+@media (max-width: 768px) {
+  .tb-hero {
+    padding: 48px 16px;
+  }
+
+  .tb-hero h1 {
+    font-size: 1.5rem;
+  }
+}
